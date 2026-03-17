@@ -44,20 +44,14 @@ TagManager:
   - name: Ground
     uniqueID: 854447671
     locked: 0
-  - name: Walkinfront
+  - name: Default (trees, stones, props)
     uniqueID: 2624357521
     locked: 0
-  - name: Coollision
+  - name: 'Player '
     uniqueID: 881729581
     locked: 0
-  - name: Player
+  - name: UI (health bars, UI elements)
     uniqueID: 1013412507
-    locked: 0
-  - name: WalkBehind
-    uniqueID: 265788961
-    locked: 0
-  - name: Decor
-    uniqueID: 3522520799
     locked: 0
   m_RenderingLayers:
   - Default
