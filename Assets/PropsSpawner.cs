@@ -1,66 +1,78 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class PropsSpawner : MonoBehaviour
 {
-    [SerializeField] private Tilemap groundTilemap;
+    [Header("Spawn Zone")]
+    [SerializeField] private PolygonCollider2D spawnZone; // drag SpawnZone here
+
+    [Header("Props")]
     [SerializeField] private GameObject[] treePrefabs;
     [SerializeField] private GameObject[] stonePrefabs;
     [SerializeField] private GameObject[] vegetationPrefabs;
+
+    [Header("Spawn Count")]
     [SerializeField] private int treeCount = 15;
     [SerializeField] private int stoneCount = 20;
     [SerializeField] private int vegCount = 10;
-    [SerializeField] private float minDistanceBetweenProps = 1.5f;
 
-    [Header("House Exclusion Zone")]
-    [SerializeField] private Transform houseTransform; // drag your house here
-    [SerializeField] private float houseRadius = 4f;   // adjust to match house size
+    [Header("Spacing")]
+    [SerializeField] private float minDistanceBetweenProps = 1.5f;
+    [SerializeField] private int maxAttempts = 30;
+
+    [Header("House Exclusion")]
+    [SerializeField] private Transform houseTransform;
+    [SerializeField] private float houseRadius = 4f;
 
     private List<Vector3> spawnedPositions = new List<Vector3>();
 
     void Start()
     {
-        List<Vector3> positions = GetValidTilePositions();
-        Shuffle(positions);
-        SpawnGroup(treePrefabs, treeCount, positions);
-        SpawnGroup(stonePrefabs, stoneCount, positions);
-        SpawnGroup(vegetationPrefabs, vegCount, positions);
+        SpawnGroup(treePrefabs, treeCount);
+        SpawnGroup(stonePrefabs, stoneCount);
+        SpawnGroup(vegetationPrefabs, vegCount);
     }
 
-    List<Vector3> GetValidTilePositions()
-    {
-        List<Vector3> positions = new List<Vector3>();
-        BoundsInt bounds = groundTilemap.cellBounds;
-
-        foreach (Vector3Int cell in bounds.allPositionsWithin)
-        {
-            if (groundTilemap.HasTile(cell))
-            {
-                Vector3 worldPos = groundTilemap.CellToWorld(cell)
-                                 + new Vector3(0.5f, 0.5f, 0);
-                positions.Add(worldPos);
-            }
-        }
-        return positions;
-    }
-
-    void SpawnGroup(GameObject[] prefabs, int count, List<Vector3> positions)
+    void SpawnGroup(GameObject[] prefabs, int count)
     {
         if (prefabs.Length == 0) return;
 
         int spawned = 0;
-        foreach (Vector3 pos in positions)
-        {
-            if (spawned >= count) break;
-            if (!IsFarEnough(pos)) continue;
-            if (IsTooCloseToHouse(pos)) continue; // ← house check
+        int attempts = 0;
 
+        while (spawned < count && attempts < count * maxAttempts)
+        {
+            attempts++;
+
+            // get a random point inside the polygon bounds
+            Vector3 randomPos = GetRandomPointInPolygon();
+
+            // check it's actually inside the polygon shape
+            if (!spawnZone.OverlapPoint(randomPos)) continue;
+
+            // check spacing from other props
+            if (!IsFarEnough(randomPos)) continue;
+
+            // check house exclusion
+            if (IsTooCloseToHouse(randomPos)) continue;
+
+            // spawn it
             GameObject prefab = prefabs[Random.Range(0, prefabs.Length)];
-            Instantiate(prefab, pos, Quaternion.identity, transform);
-            spawnedPositions.Add(pos);
+            Instantiate(prefab, randomPos, Quaternion.identity, transform);
+            spawnedPositions.Add(randomPos);
             spawned++;
         }
+    }
+
+    Vector3 GetRandomPointInPolygon()
+    {
+        // get the bounding box of the polygon
+        Bounds bounds = spawnZone.bounds;
+
+        float x = Random.Range(bounds.min.x, bounds.max.x);
+        float y = Random.Range(bounds.min.y, bounds.max.y);
+
+        return new Vector3(x, y, 0);
     }
 
     bool IsFarEnough(Vector3 pos)
@@ -73,21 +85,9 @@ public class PropsSpawner : MonoBehaviour
         return true;
     }
 
-    // ── new method — skip positions too close to the house ──
     bool IsTooCloseToHouse(Vector3 pos)
     {
         if (houseTransform == null) return false;
         return Vector3.Distance(pos, houseTransform.position) < houseRadius;
-    }
-
-    void Shuffle(List<Vector3> list)
-    {
-        for (int i = 0; i < list.Count; i++)
-        {
-            Vector3 temp = list[i];
-            int rand = Random.Range(i, list.Count);
-            list[i] = list[rand];
-            list[rand] = temp;
-        }
     }
 }
