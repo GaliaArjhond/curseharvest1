@@ -4,7 +4,7 @@ using UnityEngine;
 public class PropsSpawner : MonoBehaviour
 {
     [Header("Spawn Zone")]
-    [SerializeField] private PolygonCollider2D spawnZone; // drag SpawnZone here
+    [SerializeField] private PolygonCollider2D spawnZone;
 
     [Header("Props")]
     [SerializeField] private GameObject[] treePrefabs;
@@ -24,13 +24,49 @@ public class PropsSpawner : MonoBehaviour
     [SerializeField] private Transform houseTransform;
     [SerializeField] private float houseRadius = 4f;
 
+    [Header("Chunk Settings")]
+    [SerializeField] private bool spawnOnStart = true;
+    [HideInInspector] public bool hasSpawned = false; // ← must be public
+
     private List<Vector3> spawnedPositions = new List<Vector3>();
+    private List<GameObject> spawnedProps = new List<GameObject>();
 
     void Start()
     {
+        if (spawnOnStart)
+            SpawnAll();
+    }
+
+    // ── called by ChunkLoader when chunk is enabled ──
+    public void SpawnAll()
+    {
+        if (hasSpawned) return; // don't spawn twice
+
         SpawnGroup(treePrefabs, treeCount);
         SpawnGroup(stonePrefabs, stoneCount);
         SpawnGroup(vegetationPrefabs, vegCount);
+
+        hasSpawned = true;
+    }
+
+    // ── called by ChunkLoader when chunk is disabled ──
+    public void DespawnAll()
+    {
+        foreach (GameObject prop in spawnedProps)
+        {
+            if (prop != null)
+                prop.SetActive(false);
+        }
+    }
+
+    // ── called when chunk is re-enabled ──
+    public void ShowAll()
+    {
+        foreach (GameObject prop in spawnedProps)
+        {
+            if (prop != null)
+                prop.SetActive(true);
+        }
     }
 
     void SpawnGroup(GameObject[] prefabs, int count)
@@ -44,34 +80,26 @@ public class PropsSpawner : MonoBehaviour
         {
             attempts++;
 
-            // get a random point inside the polygon bounds
             Vector3 randomPos = GetRandomPointInPolygon();
 
-            // check it's actually inside the polygon shape
             if (!spawnZone.OverlapPoint(randomPos)) continue;
-
-            // check spacing from other props
             if (!IsFarEnough(randomPos)) continue;
-
-            // check house exclusion
             if (IsTooCloseToHouse(randomPos)) continue;
 
-            // spawn it
             GameObject prefab = prefabs[Random.Range(0, prefabs.Length)];
-            Instantiate(prefab, randomPos, Quaternion.identity, transform);
+            GameObject prop = Instantiate(prefab, randomPos, Quaternion.identity, transform);
+
             spawnedPositions.Add(randomPos);
+            spawnedProps.Add(prop); // track it so we can show/hide later
             spawned++;
         }
     }
 
     Vector3 GetRandomPointInPolygon()
     {
-        // get the bounding box of the polygon
         Bounds bounds = spawnZone.bounds;
-
         float x = Random.Range(bounds.min.x, bounds.max.x);
         float y = Random.Range(bounds.min.y, bounds.max.y);
-
         return new Vector3(x, y, 0);
     }
 
