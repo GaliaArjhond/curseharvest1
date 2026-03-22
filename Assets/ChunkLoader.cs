@@ -59,17 +59,14 @@ public class ChunkLoader : MonoBehaviour
 
     void UpdateChunks()
     {
-        // disable all chunks first
+        Debug.Log("Player chunk: " + lastPlayerChunk
+                + " — loading " + (loadRadius * 2 + 1) + "x" + (loadRadius * 2 + 1) + " grid");
+
         foreach (var chunk in chunks)
-        {
             chunk.Value.SetActive(false);
 
-            // hide props but don't destroy them
-            if (spawners.ContainsKey(chunk.Key))
-                spawners[chunk.Key].DespawnAll();
-        }
+        int loadedCount = 0;
 
-        // enable nearby chunks
         for (int x = -loadRadius; x <= loadRadius; x++)
         {
             for (int y = -loadRadius; y <= loadRadius; y++)
@@ -82,8 +79,8 @@ public class ChunkLoader : MonoBehaviour
                 if (!chunks.ContainsKey(chunkPos)) continue;
 
                 chunks[chunkPos].SetActive(true);
+                loadedCount++;
 
-                // spawn props first time, show them if already spawned
                 if (spawners.ContainsKey(chunkPos))
                 {
                     if (!spawners[chunkPos].hasSpawned)
@@ -93,5 +90,7 @@ public class ChunkLoader : MonoBehaviour
                 }
             }
         }
+
+        Debug.Log("Chunks loaded: " + loadedCount + " / " + chunks.Count);
     }
 }
