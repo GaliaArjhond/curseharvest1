@@ -212,7 +212,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1238144194}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Hotbar, Assembly-CSharp
         m_MethodName: SelectSlot
         m_Mode: 3
@@ -17327,7 +17327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 389546647}
   - component: {fileID: 389546646}
-  - component: {fileID: 389546645}
+  - component: {fileID: 389546648}
   m_Layer: 0
   m_Name: DayNightManager
   m_TagString: Untagged
@@ -17335,23 +17335,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &389546645
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389546644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51912a95272973e4dbbe12faf0e44cbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  globalLight: {fileID: 389546646}
-  startHour: 6
-  endHour: 27
-  dayDuration: 600
-  clockText: {fileID: 2010105931}
 --- !u!114 &389546646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17419,6 +17402,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &389546648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389546644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51912a95272973e4dbbe12faf0e44cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DayNightCycle
+  globalLight: {fileID: 389546646}
+  startHour: 6
+  endHour: 27
+  dayDuration: 120
+  clockText: {fileID: 2010105931}
 --- !u!1 &433933705
 GameObject:
   m_ObjectHideFlags: 0
@@ -21091,6 +21091,73 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 19.340588, y: 6.468482}
   m_EdgeRadius: 0
+--- !u!21 &513736238
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: LiberationSans SDF Material (Instance)
+  m_Shader: {fileID: 4800000, guid: fe393ace9b354375a9cb14cdbbc28be4, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 1
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 28684132378477856, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _ColorMask: 15
+    - _CullMode: 0
+    - _FaceDilate: 0
+    - _GradientScale: 10
+    - _MaskSoftnessX: 0
+    - _MaskSoftnessY: 0
+    - _OutlineSoftness: 0
+    - _OutlineWidth: 0
+    - _PerspectiveFilter: 0.875
+    - _ScaleRatioA: 0.9
+    - _ScaleRatioB: 1
+    - _ScaleRatioC: 0.73125
+    - _ScaleX: 1
+    - _ScaleY: 1
+    - _ShaderFlags: 0
+    - _Sharpness: 0
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _TextureHeight: 1024
+    - _TextureWidth: 1024
+    - _UnderlayDilate: 0
+    - _UnderlayOffsetX: 0
+    - _UnderlayOffsetY: 0
+    - _UnderlaySoftness: 0
+    - _VertexOffsetX: 0
+    - _VertexOffsetY: 0
+    - _WeightBold: 0.75
+    - _WeightNormal: 0
+    m_Colors:
+    - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
+    - _FaceColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1 &516245451
 GameObject:
   m_ObjectHideFlags: 0
@@ -22860,7 +22927,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1238144194}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Hotbar, Assembly-CSharp
         m_MethodName: SelectSlot
         m_Mode: 3
@@ -23958,7 +24025,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1238144193}
   - component: {fileID: 1238144195}
-  - component: {fileID: 1238144194}
+  - component: {fileID: 1238144196}
   m_Layer: 5
   m_Name: Hotbar
   m_TagString: Untagged
@@ -23993,29 +24060,6 @@ RectTransform:
   m_AnchoredPosition: {x: 1767, y: 37}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 20, y: 0.5}
---- !u!114 &1238144194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1238144192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b07954a95539d0a488dce10d1f7b7c02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Hotbar
-  slots:
-  - {fileID: 1657442509}
-  - {fileID: 1896117603}
-  - {fileID: 26733670}
-  - {fileID: 1842207302}
-  - {fileID: 1416165049}
-  - {fileID: 2029060688}
-  - {fileID: 962243989}
-  - {fileID: 1858792141}
-  normalColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.8}
-  selectedColor: {r: 0.9, g: 0.7, b: 0.1, a: 1}
 --- !u!114 &1238144195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24042,6 +24086,29 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &1238144196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238144192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b07954a95539d0a488dce10d1f7b7c02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Hotbar
+  slots:
+  - {fileID: 1210748118}
+  - {fileID: 126930665}
+  - {fileID: 682181110}
+  - {fileID: 829370990}
+  - {fileID: 1848114584}
+  - {fileID: 1415209461}
+  - {fileID: 224500815}
+  - {fileID: 251946553}
+  normalColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.8}
+  selectedColor: {r: 0.9, g: 0.7, b: 0.1, a: 1}
 --- !u!1 &1334356698
 GameObject:
   m_ObjectHideFlags: 0
@@ -24393,7 +24460,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1238144194}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Hotbar, Assembly-CSharp
         m_MethodName: SelectSlot
         m_Mode: 3
@@ -26339,7 +26406,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1238144194}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Hotbar, Assembly-CSharp
         m_MethodName: SelectSlot
         m_Mode: 3
@@ -48091,7 +48158,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1238144194}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Hotbar, Assembly-CSharp
         m_MethodName: SelectSlot
         m_Mode: 3
@@ -48293,7 +48360,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1238144194}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Hotbar, Assembly-CSharp
         m_MethodName: SelectSlot
         m_Mode: 3
@@ -48360,11 +48427,11 @@ GameObject:
   - component: {fileID: 1891635885}
   - component: {fileID: 1891635886}
   - component: {fileID: 1891635887}
-  - component: {fileID: 1891635888}
   - component: {fileID: 1891635890}
-  - component: {fileID: 1891635889}
   - component: {fileID: 1891635891}
   - component: {fileID: 1891635893}
+  - component: {fileID: 1891635894}
+  - component: {fileID: 1891635895}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -48660,46 +48727,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77f7d09061f6a0849a5d381b565c33e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SortingOrderHandler
---- !u!114 &1891635888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1891635879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12949a4dba37ff54093f9919b3ae75e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ChunkLoader
-  chunkSize: 16
-  loadRadius: 2
-  worldParent: {fileID: 243489759}
---- !u!114 &1891635889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1891635879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff9c45deea1257b4da32c169403823f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  maxHealth: 100
-  currentHealth: 0
-  healthBar: {fileID: 248020767}
-  healthText: {fileID: 450156613}
-  maxStamina: 100
-  currentStamina: 0
-  staminaBar: {fileID: 276856565}
-  staminaText: {fileID: 1988228476}
-  walkStaminaDrain: 0.3
-  staminaRegenRate: 0.01
-  staminaRegenDelay: 5
-  healthRegenRate: 2
-  regenDelay: 5
 --- !u!114 &1891635890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48757,6 +48784,46 @@ MonoBehaviour:
   testItems:
   - {fileID: 11400000, guid: bda9a56ee4a11524f96df8cd499b5563, type: 2}
   - {fileID: 11400000, guid: a4caf437b451c1548aa59c45bdf2b02d, type: 2}
+--- !u!114 &1891635894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891635879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9c45deea1257b4da32c169403823f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
+  maxHealth: 100
+  currentHealth: 0
+  healthBar: {fileID: 248020767}
+  healthText: {fileID: 450156613}
+  maxStamina: 100
+  currentStamina: 0
+  staminaBar: {fileID: 276856565}
+  staminaText: {fileID: 1988228476}
+  walkStaminaDrain: 0.3
+  staminaRegenRate: 0.2
+  staminaRegenDelay: 0.5
+  healthRegenRate: 2
+  regenDelay: 5
+--- !u!114 &1891635895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1891635879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12949a4dba37ff54093f9919b3ae75e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChunkLoader
+  chunkSize: 16
+  loadRadius: 2
+  worldParent: {fileID: 373810106}
 --- !u!1 &1896117602
 GameObject:
   m_ObjectHideFlags: 0
@@ -48850,7 +48917,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1238144194}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Hotbar, Assembly-CSharp
         m_MethodName: SelectSlot
         m_Mode: 3
@@ -49122,10 +49189,12 @@ MonoBehaviour:
   m_text: New Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
+  m_sharedMaterial: {fileID: 513736238}
+  m_fontSharedMaterials:
+  - {fileID: 513736238}
+  m_fontMaterial: {fileID: 513736238}
+  m_fontMaterials:
+  - {fileID: 513736238}
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
@@ -49249,7 +49318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BookUI
   bookPanel: {fileID: 2107986189}
   pages:
-  - {fileID: 0}
+  - {fileID: 2110436528}
   - {fileID: 2066195793}
   - {fileID: 1133269052}
   - {fileID: 234127005}
@@ -49359,7 +49428,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1238144194}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Hotbar, Assembly-CSharp
         m_MethodName: SelectSlot
         m_Mode: 3
@@ -49761,7 +49830,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9c981bd78b6f3146a076859c4327d88, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
+  m_EditorClassIdentifier: Assembly-CSharp::BackpackUI
   slotPrefab: {fileID: 1371097952290087424, guid: 74f476e5f2c8f3d42a9aa1e8e3df8399, type: 3}
 --- !u!1 &2140376248
 GameObject:
